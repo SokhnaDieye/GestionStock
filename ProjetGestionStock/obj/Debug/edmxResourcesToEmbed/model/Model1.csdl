@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StockModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="idCategorie" />
+    </Key>
+    <Property Name="idCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeCategorie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="LibelleCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Produit">
+    <Key>
+      <PropertyRef Name="idProduit" />
+    </Key>
+    <Property Name="idProduit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeProduit" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Name="DesignationProduit" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+    <Property Name="PU" Type="Double" />
+    <Property Name="QteMin" Type="Int32" />
+    <Property Name="QteCri" Type="Int32" />
+    <Property Name="CodeCategorie" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="VListeProduitCategorie">
+    <Key>
+      <PropertyRef Name="idProduit" />
+    </Key>
+    <Property Name="LibelleCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CodeProduit" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Name="DesignationProduit" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+    <Property Name="QteMin" Type="Int32" />
+    <Property Name="PU" Type="Double" />
+    <Property Name="QteCri" Type="Int32" />
+    <Property Name="idProduit" Type="Int32" Nullable="false" />
+    <Property Name="CodeCategorie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="StockEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" />
+    <EntitySet Name="Produit" EntityType="Self.Produit" />
+    <EntitySet Name="VListeProduitCategorie" EntityType="Self.VListeProduitCategorie" />
+    <EntitySet Name="Approvisionnement" EntityType="StockModel.Approvisionnement" />
+    <EntitySet Name="Profil" EntityType="StockModel.Profil" />
+    <EntitySet Name="Utilisateur" EntityType="StockModel.Utilisateur" />
+    <EntitySet Name="Ventes" EntityType="StockModel.Ventes" />
+    <EntitySet Name="VlisteVente" EntityType="StockModel.VlisteVente" />
+    <EntitySet Name="Td_Erreur" EntityType="StockModel.Td_Erreur" />
+  </EntityContainer>
+  <EntityType Name="Approvisionnement">
+    <Key>
+      <PropertyRef Name="idAppro" />
+    </Key>
+    <Property Name="idAppro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeProduit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QteAppro" Type="Int32" />
+    <Property Name="QteRestante" Type="Int32" />
+    <Property Name="DatePeremption" Type="DateTime" Precision="0" />
+    <Property Name="DateAppro" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Profil">
+    <Key>
+      <PropertyRef Name="idProfil" />
+    </Key>
+    <Property Name="idProfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeProfil" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LibelleProfil" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="idUt" />
+    </Key>
+    <Property Name="idUt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdentifiantUt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MotDePasse" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CodeProfil" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Ventes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeProduitV" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="DesignationProduitV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PuProduitV" Type="Double" />
+    <Property Name="Quantite" Type="Int32" />
+    <Property Name="Nom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="AdresseEmail" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="Prix" Type="Double" />
+  </EntityType>
+  <EntityType Name="VlisteVente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeProduitV" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="DesignationProduitV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PuProduitV" Type="Double" />
+    <Property Name="Quantite" Type="Int32" />
+    <Property Name="Nom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="AdresseEmail" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Td_Erreur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DtaErreur" Type="DateTime" Precision="3" />
+    <Property Name="DescriptionErreur" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="TitreErreur" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

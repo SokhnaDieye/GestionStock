@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StockModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Approvisionnement">
+          <Key>
+            <PropertyRef Name="idAppro" />
+          </Key>
+          <Property Name="idAppro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeProduit" Type="nvarchar" MaxLength="50" />
+          <Property Name="QteAppro" Type="int" />
+          <Property Name="QteRestante" Type="int" />
+          <Property Name="DatePeremption" Type="date" />
+          <Property Name="DateAppro" Type="date" />
+        </EntityType>
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="idCategorie" />
+          </Key>
+          <Property Name="idCategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeCategorie" Type="nvarchar" MaxLength="4" />
+          <Property Name="LibelleCode" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="idProduit" />
+          </Key>
+          <Property Name="idProduit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeProduit" Type="nchar" MaxLength="5" />
+          <Property Name="DesignationProduit" Type="nchar" MaxLength="200" />
+          <Property Name="PU" Type="float" />
+          <Property Name="QteMin" Type="int" />
+          <Property Name="QteCri" Type="int" />
+          <Property Name="CodeCategorie" Type="nchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Profil">
+          <Key>
+            <PropertyRef Name="idProfil" />
+          </Key>
+          <Property Name="idProfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeProfil" Type="nvarchar" MaxLength="20" />
+          <Property Name="LibelleProfil" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Td_Erreur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DtaErreur" Type="datetime" />
+          <Property Name="DescriptionErreur" Type="nvarchar" MaxLength="200" />
+          <Property Name="TitreErreur" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="idUt" />
+          </Key>
+          <Property Name="idUt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentifiantUt" Type="nvarchar" MaxLength="50" />
+          <Property Name="MotDePasse" Type="nvarchar" MaxLength="250" />
+          <Property Name="CodeProfil" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Ventes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeProduitV" Type="nvarchar" MaxLength="5" />
+          <Property Name="DesignationProduitV" Type="nvarchar" MaxLength="200" />
+          <Property Name="PuProduitV" Type="float" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdresseEmail" Type="nvarchar" MaxLength="70" />
+          <Property Name="Prix" Type="float" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'Stock.dbo.VListeProduitCategorie' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="VListeProduitCategorie">
+          <Key>
+            <PropertyRef Name="idProduit" />
+          </Key>
+          <Property Name="LibelleCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CodeProduit" Type="nchar" MaxLength="5" />
+          <Property Name="DesignationProduit" Type="nchar" MaxLength="200" />
+          <Property Name="QteMin" Type="int" />
+          <Property Name="PU" Type="float" />
+          <Property Name="QteCri" Type="int" />
+          <Property Name="idProduit" Type="int" Nullable="false" />
+          <Property Name="CodeCategorie" Type="nvarchar" MaxLength="4" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'Stock.dbo.VlisteVente' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="VlisteVente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeProduitV" Type="nvarchar" MaxLength="5" />
+          <Property Name="DesignationProduitV" Type="nvarchar" MaxLength="200" />
+          <Property Name="PuProduitV" Type="float" />
+          <Property Name="Quantite" Type="int" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="150" />
+          <Property Name="AdresseEmail" Type="nvarchar" MaxLength="70" />
+        </EntityType>
+        <EntityContainer Name="StockModelStoreContainer">
+          <EntitySet Name="Approvisionnement" EntityType="Self.Approvisionnement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produit" EntityType="Self.Produit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profil" EntityType="Self.Profil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Td_Erreur" EntityType="Self.Td_Erreur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ventes" EntityType="Self.Ventes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VListeProduitCategorie" EntityType="Self.VListeProduitCategorie" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VListeProduitCategorie].[LibelleCode] AS [LibelleCode], 
+    [VListeProduitCategorie].[CodeProduit] AS [CodeProduit], 
+    [VListeProduitCategorie].[DesignationProduit] AS [DesignationProduit], 
+    [VListeProduitCategorie].[QteMin] AS [QteMin], 
+    [VListeProduitCategorie].[PU] AS [PU], 
+    [VListeProduitCategorie].[QteCri] AS [QteCri], 
+    [VListeProduitCategorie].[idProduit] AS [idProduit], 
+    [VListeProduitCategorie].[CodeCategorie] AS [CodeCategorie]
+    FROM [dbo].[VListeProduitCategorie] AS [VListeProduitCategorie]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VlisteVente" EntityType="Self.VlisteVente" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VlisteVente].[id] AS [id], 
+    [VlisteVente].[CodeProduitV] AS [CodeProduitV], 
+    [VlisteVente].[DesignationProduitV] AS [DesignationProduitV], 
+    [VlisteVente].[PuProduitV] AS [PuProduitV], 
+    [VlisteVente].[Quantite] AS [Quantite], 
+    [VlisteVente].[Nom] AS [Nom], 
+    [VlisteVente].[Prenom] AS [Prenom], 
+    [VlisteVente].[Tel] AS [Tel], 
+    [VlisteVente].[AdresseEmail] AS [AdresseEmail]
+    FROM [dbo].[VlisteVente] AS [VlisteVente]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StockModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="idCategorie" />
+          </Key>
+          <Property Name="idCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeCategorie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="LibelleCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="idProduit" />
+          </Key>
+          <Property Name="idProduit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeProduit" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="DesignationProduit" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="PU" Type="Double" />
+          <Property Name="QteMin" Type="Int32" />
+          <Property Name="QteCri" Type="Int32" />
+          <Property Name="CodeCategorie" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VListeProduitCategorie">
+          <Key>
+            <PropertyRef Name="idProduit" />
+          </Key>
+          <Property Name="LibelleCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CodeProduit" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Name="DesignationProduit" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="QteMin" Type="Int32" />
+          <Property Name="PU" Type="Double" />
+          <Property Name="QteCri" Type="Int32" />
+          <Property Name="idProduit" Type="Int32" Nullable="false" />
+          <Property Name="CodeCategorie" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="StockEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" />
+          <EntitySet Name="Produit" EntityType="Self.Produit" />
+          <EntitySet Name="VListeProduitCategorie" EntityType="Self.VListeProduitCategorie" />
+          <EntitySet Name="Approvisionnement" EntityType="StockModel.Approvisionnement" />
+          <EntitySet Name="Profil" EntityType="StockModel.Profil" />
+          <EntitySet Name="Utilisateur" EntityType="StockModel.Utilisateur" />
+          <EntitySet Name="Ventes" EntityType="StockModel.Ventes" />
+          <EntitySet Name="VlisteVente" EntityType="StockModel.VlisteVente" />
+          <EntitySet Name="Td_Erreur" EntityType="StockModel.Td_Erreur" />
+        </EntityContainer>
+        <EntityType Name="Approvisionnement">
+          <Key>
+            <PropertyRef Name="idAppro" />
+          </Key>
+          <Property Name="idAppro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeProduit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QteAppro" Type="Int32" />
+          <Property Name="QteRestante" Type="Int32" />
+          <Property Name="DatePeremption" Type="DateTime" Precision="0" />
+          <Property Name="DateAppro" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Profil">
+          <Key>
+            <PropertyRef Name="idProfil" />
+          </Key>
+          <Property Name="idProfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeProfil" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LibelleProfil" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="idUt" />
+          </Key>
+          <Property Name="idUt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentifiantUt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MotDePasse" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CodeProfil" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ventes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeProduitV" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationProduitV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PuProduitV" Type="Double" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="Nom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdresseEmail" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Prix" Type="Double" />
+        </EntityType>
+        <EntityType Name="VlisteVente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeProduitV" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationProduitV" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PuProduitV" Type="Double" />
+          <Property Name="Quantite" Type="Int32" />
+          <Property Name="Nom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdresseEmail" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Td_Erreur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DtaErreur" Type="DateTime" Precision="3" />
+          <Property Name="DescriptionErreur" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TitreErreur" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StockModelStoreContainer" CdmEntityContainer="StockEntities">
+          <EntitySetMapping Name="Categorie">
+            <EntityTypeMapping TypeName="StockModel.Categorie">
+              <MappingFragment StoreEntitySet="Categorie">
+                <ScalarProperty Name="idCategorie" ColumnName="idCategorie" />
+                <ScalarProperty Name="CodeCategorie" ColumnName="CodeCategorie" />
+                <ScalarProperty Name="LibelleCode" ColumnName="LibelleCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produit">
+            <EntityTypeMapping TypeName="StockModel.Produit">
+              <MappingFragment StoreEntitySet="Produit">
+                <ScalarProperty Name="idProduit" ColumnName="idProduit" />
+                <ScalarProperty Name="CodeProduit" ColumnName="CodeProduit" />
+                <ScalarProperty Name="DesignationProduit" ColumnName="DesignationProduit" />
+                <ScalarProperty Name="PU" ColumnName="PU" />
+                <ScalarProperty Name="QteMin" ColumnName="QteMin" />
+                <ScalarProperty Name="QteCri" ColumnName="QteCri" />
+                <ScalarProperty Name="CodeCategorie" ColumnName="CodeCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VListeProduitCategorie">
+            <EntityTypeMapping TypeName="StockModel.VListeProduitCategorie">
+              <MappingFragment StoreEntitySet="VListeProduitCategorie">
+                <ScalarProperty Name="LibelleCode" ColumnName="LibelleCode" />
+                <ScalarProperty Name="CodeProduit" ColumnName="CodeProduit" />
+                <ScalarProperty Name="DesignationProduit" ColumnName="DesignationProduit" />
+                <ScalarProperty Name="QteMin" ColumnName="QteMin" />
+                <ScalarProperty Name="PU" ColumnName="PU" />
+                <ScalarProperty Name="QteCri" ColumnName="QteCri" />
+                <ScalarProperty Name="idProduit" ColumnName="idProduit" />
+                <ScalarProperty Name="CodeCategorie" ColumnName="CodeCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Approvisionnement">
+            <EntityTypeMapping TypeName="StockModel.Approvisionnement">
+              <MappingFragment StoreEntitySet="Approvisionnement">
+                <ScalarProperty Name="DateAppro" ColumnName="DateAppro" />
+                <ScalarProperty Name="DatePeremption" ColumnName="DatePeremption" />
+                <ScalarProperty Name="QteRestante" ColumnName="QteRestante" />
+                <ScalarProperty Name="QteAppro" ColumnName="QteAppro" />
+                <ScalarProperty Name="CodeProduit" ColumnName="CodeProduit" />
+                <ScalarProperty Name="idAppro" ColumnName="idAppro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profil">
+            <EntityTypeMapping TypeName="StockModel.Profil">
+              <MappingFragment StoreEntitySet="Profil">
+                <ScalarProperty Name="LibelleProfil" ColumnName="LibelleProfil" />
+                <ScalarProperty Name="CodeProfil" ColumnName="CodeProfil" />
+                <ScalarProperty Name="idProfil" ColumnName="idProfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur">
+            <EntityTypeMapping TypeName="StockModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="CodeProfil" ColumnName="CodeProfil" />
+                <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+                <ScalarProperty Name="IdentifiantUt" ColumnName="IdentifiantUt" />
+                <ScalarProperty Name="idUt" ColumnName="idUt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventes">
+            <EntityTypeMapping TypeName="StockModel.Ventes">
+              <MappingFragment StoreEntitySet="Ventes">
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="AdresseEmail" ColumnName="AdresseEmail" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="PuProduitV" ColumnName="PuProduitV" />
+                <ScalarProperty Name="DesignationProduitV" ColumnName="DesignationProduitV" />
+                <ScalarProperty Name="CodeProduitV" ColumnName="CodeProduitV" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VlisteVente">
+            <EntityTypeMapping TypeName="StockModel.VlisteVente">
+              <MappingFragment StoreEntitySet="VlisteVente">
+                <ScalarProperty Name="AdresseEmail" ColumnName="AdresseEmail" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+                <ScalarProperty Name="PuProduitV" ColumnName="PuProduitV" />
+                <ScalarProperty Name="DesignationProduitV" ColumnName="DesignationProduitV" />
+                <ScalarProperty Name="CodeProduitV" ColumnName="CodeProduitV" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Td_Erreur">
+            <EntityTypeMapping TypeName="StockModel.Td_Erreur">
+              <MappingFragment StoreEntitySet="Td_Erreur">
+                <ScalarProperty Name="TitreErreur" ColumnName="TitreErreur" />
+                <ScalarProperty Name="DescriptionErreur" ColumnName="DescriptionErreur" />
+                <ScalarProperty Name="DtaErreur" ColumnName="DtaErreur" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

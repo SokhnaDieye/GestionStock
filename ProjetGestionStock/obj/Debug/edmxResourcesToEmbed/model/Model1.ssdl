@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StockModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Approvisionnement">
+    <Key>
+      <PropertyRef Name="idAppro" />
+    </Key>
+    <Property Name="idAppro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeProduit" Type="nvarchar" MaxLength="50" />
+    <Property Name="QteAppro" Type="int" />
+    <Property Name="QteRestante" Type="int" />
+    <Property Name="DatePeremption" Type="date" />
+    <Property Name="DateAppro" Type="date" />
+  </EntityType>
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="idCategorie" />
+    </Key>
+    <Property Name="idCategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeCategorie" Type="nvarchar" MaxLength="4" />
+    <Property Name="LibelleCode" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Produit">
+    <Key>
+      <PropertyRef Name="idProduit" />
+    </Key>
+    <Property Name="idProduit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeProduit" Type="nchar" MaxLength="5" />
+    <Property Name="DesignationProduit" Type="nchar" MaxLength="200" />
+    <Property Name="PU" Type="float" />
+    <Property Name="QteMin" Type="int" />
+    <Property Name="QteCri" Type="int" />
+    <Property Name="CodeCategorie" Type="nchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Profil">
+    <Key>
+      <PropertyRef Name="idProfil" />
+    </Key>
+    <Property Name="idProfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeProfil" Type="nvarchar" MaxLength="20" />
+    <Property Name="LibelleProfil" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Td_Erreur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DtaErreur" Type="datetime" />
+    <Property Name="DescriptionErreur" Type="nvarchar" MaxLength="200" />
+    <Property Name="TitreErreur" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="idUt" />
+    </Key>
+    <Property Name="idUt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentifiantUt" Type="nvarchar" MaxLength="50" />
+    <Property Name="MotDePasse" Type="nvarchar" MaxLength="250" />
+    <Property Name="CodeProfil" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Ventes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeProduitV" Type="nvarchar" MaxLength="5" />
+    <Property Name="DesignationProduitV" Type="nvarchar" MaxLength="200" />
+    <Property Name="PuProduitV" Type="float" />
+    <Property Name="Quantite" Type="int" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="150" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="150" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="150" />
+    <Property Name="AdresseEmail" Type="nvarchar" MaxLength="70" />
+    <Property Name="Prix" Type="float" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'Stock.dbo.VListeProduitCategorie' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="VListeProduitCategorie">
+    <Key>
+      <PropertyRef Name="idProduit" />
+    </Key>
+    <Property Name="LibelleCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="CodeProduit" Type="nchar" MaxLength="5" />
+    <Property Name="DesignationProduit" Type="nchar" MaxLength="200" />
+    <Property Name="QteMin" Type="int" />
+    <Property Name="PU" Type="float" />
+    <Property Name="QteCri" Type="int" />
+    <Property Name="idProduit" Type="int" Nullable="false" />
+    <Property Name="CodeCategorie" Type="nvarchar" MaxLength="4" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'Stock.dbo.VlisteVente' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="VlisteVente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeProduitV" Type="nvarchar" MaxLength="5" />
+    <Property Name="DesignationProduitV" Type="nvarchar" MaxLength="200" />
+    <Property Name="PuProduitV" Type="float" />
+    <Property Name="Quantite" Type="int" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="150" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="150" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="150" />
+    <Property Name="AdresseEmail" Type="nvarchar" MaxLength="70" />
+  </EntityType>
+  <EntityContainer Name="StockModelStoreContainer">
+    <EntitySet Name="Approvisionnement" EntityType="Self.Approvisionnement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produit" EntityType="Self.Produit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Profil" EntityType="Self.Profil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Td_Erreur" EntityType="Self.Td_Erreur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ventes" EntityType="Self.Ventes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VListeProduitCategorie" EntityType="Self.VListeProduitCategorie" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VListeProduitCategorie].[LibelleCode] AS [LibelleCode], 
+    [VListeProduitCategorie].[CodeProduit] AS [CodeProduit], 
+    [VListeProduitCategorie].[DesignationProduit] AS [DesignationProduit], 
+    [VListeProduitCategorie].[QteMin] AS [QteMin], 
+    [VListeProduitCategorie].[PU] AS [PU], 
+    [VListeProduitCategorie].[QteCri] AS [QteCri], 
+    [VListeProduitCategorie].[idProduit] AS [idProduit], 
+    [VListeProduitCategorie].[CodeCategorie] AS [CodeCategorie]
+    FROM [dbo].[VListeProduitCategorie] AS [VListeProduitCategorie]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VlisteVente" EntityType="Self.VlisteVente" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VlisteVente].[id] AS [id], 
+    [VlisteVente].[CodeProduitV] AS [CodeProduitV], 
+    [VlisteVente].[DesignationProduitV] AS [DesignationProduitV], 
+    [VlisteVente].[PuProduitV] AS [PuProduitV], 
+    [VlisteVente].[Quantite] AS [Quantite], 
+    [VlisteVente].[Nom] AS [Nom], 
+    [VlisteVente].[Prenom] AS [Prenom], 
+    [VlisteVente].[Tel] AS [Tel], 
+    [VlisteVente].[AdresseEmail] AS [AdresseEmail]
+    FROM [dbo].[VlisteVente] AS [VlisteVente]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
